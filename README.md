@@ -37,4 +37,4 @@ FB_CLIENT_ID=facebookClientIdHere
 FB_CLIENT_SECRET=facebookClientSecretHere
 ```
 - `nodemon` or `npm start` to start server
-- Open your browser
+- Open your browser 
