@@ -1,0 +1,57 @@
+<% include ../partials/header %>
+
+<div class="modContainer">
+  <div class="row" id="profile">
+    <div class="col-12 col-lg-4">
+      <img id="profileImg" class="img-thumbnail img-fluid rounded-circle" src="<%=user.image%>" alt="profilePic">
+      <h1><%=user.name%></h1>
+      <!--EMAIL LINK-->
+      <a href="mailto:<%=user.email%>?Subject=Changwon%20Developers"><%=user.email%></a>
+      <!--BIO-->
+      <div>
+        <p><%= user.bio %></p>
+      </div>
+      <% if(currentUser && (user._id.equals(currentUser._id) || currentUser.isAdmin)){ %>
+        <a href="/profile/<%= user._id %>/edit" class="btn btn-warning" style="color: #fff;">Edit Profile</a>
+        <% if(user.testimonial){ %>
+          <a href="/testimonial/<%= user.testimonial %>/edit" class="btn btn-secondary">Edit Testimonial</a>
+        <% } else { %>
+          <a href="/testimonial/new" class="btn btn-info">Add a Testimonial</a>
+        <% } %>
+        <form method="POST" action="/profile/<%= user._id %>?_method=DELETE">
+          <button type="submit" class="btn btn-danger">Delete Profile</button>
+        </form>
+      <% } %>
+    </div>
+    <div class="col-12 col-lg-8">
+      <div class="grid" data-masonry='{"itemSelector": ".grid-item", "columnWidth": ".grid-sizer", "percentPosition": true}'>
+        <div class="grid-sizer col-12 col-lg-6"></div>
+        <% user.blogposts.slice().reverse().forEach((post)=>{ %>
+          <div class="grid-item col-12 col-lg-6">
+            <div class="grid-item-content">
+               <div class="card text-center">
+                <div class="card-body">
+                  <h5 class="card-title"><%= post.title %></h5>
+                  <p class="card-text"><%= post.description %></p>
+                </div>
+                <div id="blogFooter">
+                  <p class="card-text"><small class="text-muted"><%= moment(post.postDate).format('MMMM Do YYYY') %></small></p>
+                  <a class="btn btn-outline-primary" href="/blogpost/<%= post._id %>">View More</a>
+                </div>  
+              </div> 
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--IMG SRC-->
+<script>
+  if(!`<%= user.image %>`){
+    document.getElementById('profileImg').src = 'https://use.fontawesome.com/releases/v5.0.9/svgs/regular/user.svg'
+  }
+</script>
+<% include ../partials/footer %>
+<% include ../partials/closingTags %>

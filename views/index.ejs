@@ -1,0 +1,86 @@
+<% include partials/header %>
+
+<section id="coverDiv">
+  <div id="groupInfo">
+    <h1>Web Developers and Designers in Korea</h1>
+    <h3>Already Started Your Coding Journey?</h3>
+    <h5>Join us as we learn, design and develop together!</h5>
+  </div>
+  <a id="blogGridBtn" href="#blogs"><i class="fas fa-chevron-down fa-3x"></i></a>
+</section>
+
+<section id="blogs">
+  <div id="featuredPost" class="card text-center">
+    <div class="cardHeader">
+      Featured Post
+    </div>
+    <div class="card-body">
+      <h5 class="card-title"><%= featuredPost[0].title %></h5>
+      <p class="card-text"><%= featuredPost[0].description %></p>
+      <a href="/blogpost/<%= featuredPost[0]._id %>" class="btn btn-outline-info">View More</a>
+    </div>
+    <div class="cardFooter">
+      <%= moment(featuredPost[0].postDate).fromNow() %>
+    </div>
+  </div>
+  <div id="blogGrid" class="grid" data-masonry='{"itemSelector": ".grid-item", "columnWidth": ".grid-sizer", "percentPosition": true}'>
+    <div class="grid-sizer col-12 col-md-6 col-lg-4"></div>
+    <% posts.forEach((post)=>{ %>
+      <div class="grid-item col-12 col-md-6 col-lg-4">
+        <div class="grid-item-content">
+           <div class="card text-center">
+            <div class="card-body">
+              <h5 class="card-title"><%= post.title %></h5>
+              <p class="card-text"><%= post.description %></p>
+            </div>
+            <div id="blogFooter">
+              <p class="card-text"><small class="text-muted"><%= moment(post.postDate).format('MMMM Do YYYY') %></small></p>
+              <a class="btn btn-outline-primary" href="/blogpost/<%= post._id %>">View More</a>
+            </div>  
+          </div> 
+        </div>
+      </div>
+    <% }) %>
+  </div>
+</section>
+
+<section id="testimonials">
+    <div id="testimonialCarousel" class="carousel slide" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <img data-target="#testimonialCarousel" data-slide-to="0" class="img-responsive active" src="https://scontent-icn1-1.xx.fbcdn.net/v/t1.0-9/13139328_10154117296604330_7132933799840595587_n.jpg?oh=ff88302c6af9add9455d2e9c4a8f47ea&oe=5B324498" alt=""></li>
+        <!--<img data-target="#testimonialCarousel" data-slide-to="1" class="img-responsive" src="https://scontent-icn1-1.xx.fbcdn.net/v/t1.0-9/13139328_10154117296604330_7132933799840595587_n.jpg?oh=ff88302c6af9add9455d2e9c4a8f47ea&oe=5B324498" alt=""></li>-->
+        <!--<img data-target="#testimonialCarousel" data-slide-to="2" class="img-responsive" src="https://scontent-icn1-1.xx.fbcdn.net/v/t1.0-9/13139328_10154117296604330_7132933799840595587_n.jpg?oh=ff88302c6af9add9455d2e9c4a8f47ea&oe=5B324498" alt=""></li>-->
+      </ol>
+      <div class="carousel-inner" role="listbox">
+        <div class="carousel-item active">
+          <div class="d-block carousel-item-inner" alt="First slide">
+            <h6>Hey! I created this site to help connect people interested in programming. If you're just starting, I hope this site can help further your knowledge. Let me know what you think!</h6>
+            <p>~ Daniel Strong</p>
+          </div>
+        </div>
+        <!--<div class="carousel-item">-->
+        <!--  <div class="d-block carousel-item-inner" alt="Second slide">-->
+        <!--    <h6><%# testimonials[0].content %></h6>-->
+        <!--    <p>~ <%# testimonials[0].author.name%></p>-->
+        <!--  </div>-->
+        <!--</div>-->
+        <!--<div class="carousel-item">-->
+        <!--  <div class="d-block carousel-item-inner" alt="Third slide">-->
+        <!--    <h6><%# testimonials[0].content %></h6>-->
+        <!--    <p>~ <%# testimonials[0].author.name%></p>-->
+        <!--  </div>-->
+        <!--</div>-->
+      </div>
+      <a class="carousel-control-prev" href="#testimonialCarousel" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#testimonialCarousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+</section>
+
+<% include partials/footer %>
+<% include partials/closingTags %>

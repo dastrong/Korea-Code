@@ -1,0 +1,26 @@
+<% include ../partials/header %>
+
+<div class="container">
+  <div id="form">
+    <div id="formHeader">
+      <h1>Edit Your Testimonial</h1>
+    </div>
+    <div id="formBody">
+      <form method="POST" action="/testimonial/<%= testimonial._id %>?_method=PUT">
+        <div class="form-group">
+          <textarea id="testText" class="form-control" type="text" name="content" rows="6" maxlength="140" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Update</button>
+      </form>
+    </div>
+  </div>
+</div> <!--CLOSES CONTAINER-->
+
+<% include ../partials/footer %>
+<!--PLACES POST CONTENT IN THE TEXTAREA-->
+<script>
+    let testimonial = `<%= testimonial.content %>`;
+    let testDoc = new DOMParser().parseFromString(testimonial, 'text/html');
+    document.getElementById("testText").value = testDoc.body.innerText;
+</script>
+<% include ../partials/closingTags %>

@@ -1,0 +1,28 @@
+<% include ./partials/header %>
+<div class="container">
+  <div id="form" style="max-width:550px;">
+    <div id="formHeader">
+      <h1>안녕하세요</h1>
+    </div>
+    <div id="formBody">
+      <a href="/auth/facebook" class="btn btn-lg btn-facebook btn-block"><i class="fab fa-facebook-square fa-lg" aria-hidden="true"></i> Login With Facebook</button></a>
+      <div class="login-or">
+        <hr class="hr-or">
+        <span class="span-or">or</span>
+      </div>
+      <form method="POST" action="/login">
+        <div class="form-group">
+          <input class="form-control" type="email" name="email" placeholder="email" required>
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="password" name="password" placeholder="password" required>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-lg btn-primary btn-block">Login</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<% include ./partials/footer %>
+<% include ./partials/closingTags %>

@@ -1,0 +1,63 @@
+  <!--FACEBOOK PLUGIN-->
+  <button class="modalBtn" id="FBbtn" type="button" data-toggle="modal" data-target="#FBdiv"><i class="fab fa-facebook-square"></i> <i class="fas fa-chevron-right"></i></button>
+  <div id="FBdiv" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="fb-page" 
+        data-href="https://www.facebook.com/KoreaWebDevelopersandDesigners" 
+        data-tabs="events, timeline, messages" 
+        data-width="500" 
+        data-height="500" 
+        data-small-header="true" 
+        data-adapt-container-width="true" 
+        data-hide-cover="false" 
+        data-show-facepile="true">
+        <blockquote cite="https://www.facebook.com/KoreaWebDevelopersandDesigners" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/KoreaWebDevelopersandDesigners">Korea Web Developers and Designers</a></blockquote>
+      </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    let FBbtn = document.getElementById('FBbtn');
+    let contactUsBtn  = document.getElementById('contactUsBtn');
+    let fbPlug = document.querySelector('.fb-page');
+    FBbtn.addEventListener('click', () => FBdiv('events, timeline, messages'));
+    contactUsBtn.addEventListener('click', () => FBdiv('messages, timeline, events'));
+    function FBdiv(str){
+      fbPlug.removeAttribute('data-tabs');
+      fbPlug.setAttribute('data-tabs', str); 
+      FB.XFBML.parse(document.getElementById('changwonFBdiv'));
+    } 
+  </script>
+  
+  <!--GITTER CHAT-->
+  <button class="modalBtn" id="gitterBtn"><i class="fas fa-chevron-left"></i> <i class="fas fa-comments"></i></button>
+  <script>
+    ((window.gitter = {}).chat = {}).options = {
+      room: 'Korea-Web-Developers-and-Designers/Lobby',
+      activationElement: '#gitterBtn'
+    };
+  </script>
+  <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+  
+  <!--FOOTER-->
+  <footer class="footer">
+    <div style="width: 20%;">
+      <a href="/privacy">Privacy Policy</a>
+      <a href="/faq">FAQs</a>
+    </div>
+    <div style="width: 33%;">
+      <p>Created By: <em>Daniel Strong</em></p>
+      <p>All Rights Reserved</p>
+    </div>
+    <div style="width: 20%;">
+      <a href="https://www.facebook.com/KoreaWebDevelopersandDesigners/"><i class="fab fa-facebook-square"></i></a>
+      <a href="https://gitter.im/Korea-Web-Developers-and-Designers/Lobby"><i class="fab fa-gitter"></i></a>
+    </div>
+  </footer>
+</div> <!--.main-container-->
+
+<!--SCRIPTS-->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

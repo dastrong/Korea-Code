@@ -1,0 +1,46 @@
+<% include ../partials/header %>
+
+<div id="blogPost">
+  <div id="blogPostHeader">
+    <h1><%= post.title %></h1>
+    <% if(currentUser && (post.author._id.equals(currentUser._id) || currentUser.isAdmin)){ %>
+      <a class="btn btn-warning" href="/blogpost/<%= post._id %>/edit">Edit</a>
+      <form method="POST" action="/blogpost/<%= post._id %>?_method=DELETE" style="display:inline-block">
+        <button type="submit" class="btn btn-danger">Delete</button>
+      </form>
+    <% } %>
+    <p><%= moment(post.postDate).format('MMMM Do YYYY') %> by <a href="/profile/<%= post.author._id %>"><%= post.author.name %></a></p>
+    <% if(post.tags && post.tags.length > 0){ %>
+      <% post.tags.forEach(tag => { %>
+        <a href="#" class="btn btn-primary btn-sm disabled" style="opacity: 1;" role="button" aria-disabled="true"><%= tag %></a>
+      <% }) %>
+    <% } %>
+  </div>
+  <div class="container">
+    <div id="blogPostContent">
+      <div id="editor"></div>
+      <% if(post.codepen.username){ %>
+        <hr>
+        <div id="codePen">
+          <p data-height="350" data-theme-id="dark" data-slug-hash="<%= post.codepen.penID %>" data-default-tab="result,html,css,js" data-user="<%= post.codepen.username %>" data-embed-version="2" data-pen-title="<%= post.codepen.penID %>" data-preview="true" class="codepen"></p>
+        </div>
+        <!--NEEDED TO EMBED CODEPENS AT THE BOTTOM-->
+        <script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+      <% } %>
+    </div>
+  </div>
+</div>
+
+<!--PARSE AND APPEND CONTENT HTML STRING-->
+<script>
+  var quill = new Quill('#editor', {
+    modules: { 
+      syntax: true
+    },
+    readOnly: true,
+    theme: 'bubble'
+  });
+  quill.setContents(<%- post.content %>)
+</script> 
+<% include ../partials/footer %>
+<% include ../partials/closingTags %>

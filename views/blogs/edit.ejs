@@ -1,0 +1,156 @@
+<% include ../partials/header %>
+
+<div class="container">
+  <div id="form">
+    <div id="formHeader">
+      <h1>Edit Your Post</h1>
+    </div>
+    <div id="formBody">
+      <form method="POST" action="/blogpost/<%= post._id %>?_method=PUT">
+        <div class="form-group">
+          <input id="titleInput" class="form-control" type="text" name="title" placeholder="title" maxlength="30" required>
+        </div>
+        <div class="form-group">
+          <textarea id="descText" class="form-control" name="description" rows="3" placeholder="give us a short description" maxlength="140" required></textarea>
+        </div>
+        <div class="form-group">
+          <input type="hidden" name="content" required></input>
+          <div id="toolbar"></div>
+      		<div id="editor"></div>
+        </div>
+        <div class="form-group">
+          <input id="cpInput" class="form-control" type="text" name="codepen" placeholder="codePen" maxlength="30">
+        </div>
+         <!--TAG BUTTONS-->
+        <div class="form-group">
+          <div id="formTags" class="btn-group-toggle" data-toggle="buttons">
+            <label class="btn btn-outline-secondary">
+              <input type="checkbox" name="tags" value="HTML" autocomplete="off"> HTML
+            </label>
+            <label class="btn btn-outline-secondary">
+              <input type="checkbox" name="tags" value="CSS" autocomplete="off"> CSS
+            </label>
+            <label class="btn btn-outline-secondary">
+              <input type="checkbox" name="tags" value="SASS" autocomplete="off"> SASS
+            </label>
+            <label class="btn btn-outline-secondary">
+              <input type="checkbox" name="tags" value="LESS" autocomplete="off"> LESS
+            </label>
+            <label class="btn btn-outline-secondary">
+              <input type="checkbox" name="tags" value="JavaScript" autocomplete="off"> JavaScript
+            </label>
+            <label class="btn btn-outline-secondary">
+              <input type="checkbox" name="tags" value="jQuery" autocomplete="off"> jQuery
+            </label>
+            <label class="btn btn-outline-secondary">
+              <input type="checkbox" name="tags" value="React" autocomplete="off"> React
+            </label>
+            <label class="btn btn-outline-secondary">
+              <input type="checkbox" name="tags" value="Angular" autocomplete="off"> Angular
+            </label>
+            <label class="btn btn-outline-secondary">
+              <input type="checkbox" name="tags" value="VueJS" autocomplete="off"> VueJS
+            </label>
+            <label class="btn btn-outline-secondary">
+              <input type="checkbox" name="tags" value="Mongoose" autocomplete="off"> Mongoose
+            </label>
+            <label class="btn btn-outline-secondary">
+              <input type="checkbox" name="tags" value="MongoDB" autocomplete="off"> MongoDB
+            </label>
+            <label class="btn btn-outline-secondary">
+              <input type="checkbox" name="tags" value="PHP" autocomplete="off"> PHP
+            </label>
+            <label class="btn btn-outline-secondary">
+              <input type="checkbox" name="tags" value="Java" autocomplete="off"> Java
+            </label>
+            <label class="btn btn-outline-secondary">
+              <input type="checkbox" name="tags" value="Ruby" autocomplete="off"> Ruby
+            </label>
+            <label class="btn btn-outline-secondary">
+              <input type="checkbox" name="tags" value="Python" autocomplete="off"> Python
+            </label>
+          </div>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary btn-block">Update</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!--ADDS HTML TO EDITOR-->
+<script>
+  var toolbarOptions = [
+		{'header': [1,2,3, false ]},'bold', 'italic', 'underline', 'strike','blockquote', 'code-block',{'list': 'ordered'}, {'list': 'bullet'},'link', 'image',{ 'color': [] }, { 'background': [] },{ 'align': [] }
+	];
+
+	var quill = new Quill('#editor', {
+		modules: { 
+			toolbar: toolbarOptions
+		},
+		theme: 'snow'
+	});
+	
+  var editor = document.getElementById('editor');
+  quill.setContents(<%- post.content %>)
+	
+  var form = document.querySelector('form');
+  form.onsubmit = function() {
+    // Populate hidden form on submit
+    const content = document.querySelector('input[name=content]');
+    content.value = JSON.stringify(quill.getContents());
+  };
+</script>
+<!--ADDS VALUE TO TITLE, CODEPEN INPUTS-->
+<script>
+  document.getElementById("titleInput").value = "<%= post.title %>";
+  if(`<%= post.codepen.username %>` && `<%= post.codepen.penID %>`){
+    document.getElementById("cpInput").value = "<%= post.codepen.username %>/pen/<%= post.codepen.penID %>";
+  }
+</script>
+<!--PLACES POST CONTENT IN THE TEXTAREA-->
+<script>
+  let description = `<%= post.description %>`;
+  let descDoc = new DOMParser().parseFromString(description, 'text/html');
+  document.getElementById("descText").value = descDoc.body.innerText;
+</script>
+<!--ADDS ACTIVE CLASS TO TAGS-->
+<script>
+if(`<%= post.tags %>`){
+  let btnArr = document.querySelectorAll("#formTags label");
+  let tagArr = "<%= post.tags %>".split(',');
+  btnArr.forEach(function(el){
+    if(tagArr.includes(el.innerText)){
+      el.classList.add('active');
+      el.children[0].checked = true;
+    }
+  });
+}
+</script>
+<% include ../partials/footer %>
+<!--TOOLTIPS - USES JQUERY-->
+<script>
+	const toolBtns = document.querySelectorAll('button[class^=ql]')
+	const header     = document.querySelector('span[class^=ql-header]');
+	const color      = document.querySelector('span[class^=ql-color]');
+	const background = document.querySelector('span[class^=ql-background]');
+	const align      = document.querySelector('span[class^=ql-align]');
+	const allTools = [...toolBtns, header, color, background, align];
+	
+	allTools.forEach(tool=>{
+  	if(tool.tagName === "SPAN"){
+  	  let toolName = tool.nextSibling.getAttribute('class').slice(3)
+  	  tool.setAttribute('title', `${toolName}`);
+  	} else {
+  	  let toolName = tool.getAttribute('class').slice(3)
+  	  tool.setAttribute('title', `${toolName}`);
+  	}
+  	tool.setAttribute('data-toggle', 'tooltip');
+  	tool.setAttribute('data-placement', 'top');
+  });
+  
+  // Enable all tooltips
+  $('[data-toggle="tooltip"]').tooltip();
+</script>
+<% include ../partials/closingTags %>

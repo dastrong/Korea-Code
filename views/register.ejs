@@ -1,0 +1,32 @@
+<% include ./partials/header %>
+<div class="container">
+  <div id="form" style="max-width:550px;">
+    <div id="formHeader">
+        <h1>안녕하세요</h1>
+    </div>
+    <div id="formBody">
+      <form method="POST" action="/register">
+        <div class="form-group">
+          <input class="form-control" type="text" name="name" placeholder="name" maxlength="30" required>
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="email" name="email" placeholder="email" maxlength="254" required>
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="password" name="password" placeholder="password"  maxlength="20" required>
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="text" name="image" placeholder="image" maxlength="222">
+        </div>
+        <div class="form-group">
+          <textarea class="form-control" name="bio" rows="5" placeholder="Share a little about you" maxlength="140"></textarea>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-lg btn-primary btn-block">Register</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<% include ./partials/footer %>
+<% include ./partials/closingTags %>
